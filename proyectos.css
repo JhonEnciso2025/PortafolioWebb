@@ -1,0 +1,580 @@
+/* 🌐 Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #0d0d0f, #1f1f1f);
+  color: #e5e5e5;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+/* 🔐 Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(35, 35, 35, 0.95);
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  margin-bottom: 2rem;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 140, 0, 0.2);
+}
+
+.logo {
+  font-size: 1.7rem;
+  font-weight: bold;
+  color: #ff7a29;
+  position: relative;
+  text-shadow: 0 0 10px rgba(255, 122, 41, 0.8),
+               0 0 20px rgba(255, 122, 41, 0.6);
+  animation: glowPulse 3s infinite ease-in-out;
+}
+
+/* ✨ Efecto glow animado */
+@keyframes glowPulse {
+  0% {
+    text-shadow: 0 0 8px rgba(255, 122, 41, 0.7),
+                 0 0 20px rgba(255, 122, 41, 0.5),
+                 0 0 30px rgba(255, 122, 41, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 122, 41, 1),
+                 0 0 40px rgba(255, 122, 41, 0.9),
+                 0 0 60px rgba(255, 122, 41, 0.7);
+  }
+  100% {
+    text-shadow: 0 0 8px rgba(255, 122, 41, 0.7),
+                 0 0 20px rgba(255, 122, 41, 0.5),
+                 0 0 30px rgba(255, 122, 41, 0.3);
+  }
+}
+
+/* Botones */
+.btn {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-primary {
+  background: #ff7a29;
+  color: #111;
+  box-shadow: 0 0 12px rgba(255, 122, 41, 0.5);
+}
+
+.btn-primary:hover {
+  background: #e06a20;
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(255, 122, 41, 0.7);
+}
+
+.btn-secondary {
+  background: #444;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #666;
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, #ff7a29, #cc5200);
+  color: white;
+  box-shadow: 0 4px 12px rgba(255, 122, 41, 0.4);
+}
+
+.btn-accent:hover {
+  background: linear-gradient(135deg, #e5671d, #b54400);
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(255, 122, 41, 0.6);
+}
+
+/* 🎯 Hero */
+.hero {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  color: #ff7a29;
+  margin-bottom: 0.5rem;
+  animation: glowPulse 3s infinite ease-in-out;
+}
+
+.hero p {
+  color: #bbb;
+  font-size: 1.2rem;
+}
+
+/* 📌 Semanas */
+.grid-semanas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.card-semana {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2.5rem 1rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 122, 41, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-semana:hover {
+  transform: translateY(-8px) scale(1.03);
+  background: rgba(255, 122, 41, 0.15);
+  color: #ff7a29;
+}
+
+/* ----------------------------
+   Card semana: borde luminoso
+   reemplazo compatible (sin mask)
+   ---------------------------- */
+.card-semana {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+
+  /* dos fondos: 1) relleno interior (clipped to padding-box)
+     2) borde degradado (aplicado en border-box) */
+  background:
+    linear-gradient(rgba(255,255,255,0.05), rgba(255,255,255,0.05)) padding-box,
+    linear-gradient(90deg, transparent, #ff7a29, transparent) border-box;
+
+  border: 2px solid transparent; /* necesario para que el segundo background se vea en el borde */
+  background-size: 100% 100%, 200% 100%;
+  background-position: 0 0, 0% 50%;
+  transition: background-position .9s linear, transform .3s ease, color .25s ease;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.25);
+}
+
+/* efecto hover: anima el gradiente que está en el border-box */
+.card-semana:hover {
+  transform: translateY(-8px) scale(1.03);
+  color: #ff7a29;
+  background-position: 0 0, 200% 50%;
+}
+
+/* opción adicional — glow exterior (suave) en hover como refuerzo visual */
+.card-semana:hover {
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.45),
+    0 0 18px rgba(255,122,41,0.12),
+    0 0 36px rgba(255,122,41,0.06);
+}
+
+.card-semana:hover::before {
+  opacity: 1;
+  animation: borderGlow 1.5s linear infinite;
+}
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* 📤 Upload */
+.upload {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255, 122, 41, 0.2);
+}
+
+.upload h3 {
+  font-size: 1.5rem;
+  color: #ff7a29;
+}
+
+.form-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input, select {
+  padding: 0.9rem;
+  border-radius: 0.6rem;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+input::placeholder {
+  color: #ccc;
+}
+
+.status {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #ff7a29;
+}
+
+/* 📂 Proyectos */
+.grid-proyectos {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.card-proyecto {
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  border: 1px solid rgba(255, 122, 41, 0.15);
+}
+
+.card-proyecto:hover {
+  transform: translateY(-6px) scale(1.02);
+  background: rgba(255, 122, 41, 0.1);
+}
+
+.card-proyecto img,
+.card-proyecto iframe,
+.card-proyecto video {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+/* 🖼️ Modal */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15,15,20,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal.oculto { display: none; }
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 2rem;
+  border-radius: 1rem;
+  width: 85%;
+  max-width: 1000px;
+  text-align: center;
+  position: relative;
+  color: #e5e5e5;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 122, 41, 0.3);
+}
+
+.cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ff7a29;
+}
+
+.flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 122, 41, 0.15);
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #ff7a29;
+  padding: 0.6rem 1rem;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.flecha:hover {
+  background: rgba(255, 122, 41, 0.3);
+}
+
+.izquierda { left: -3rem; }
+.derecha { right: -3rem; }
+
+/* ===============================
+   🟠 Estilos del Modal de Login
+   =============================== */
+
+.modal {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 15, 15, 0.8);
+  backdrop-filter: blur(4px);
+  justify-content: center;
+  align-items: center;
+}
+
+/* cuando NO tiene la clase .oculto */
+.modal:not(.oculto) {
+  display: flex;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  background: #1f1f1f;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 380px;
+  box-shadow: 0 0 25px rgba(255, 128, 0, 0.6);
+  animation: scaleUp 0.35s ease;
+  text-align: center;
+  position: relative;
+}
+
+/* Botón cerrar */
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #ff7a00;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.cerrar:hover {
+  color: #ffa94d;
+  transform: scale(1.2);
+}
+
+/* Inputs */
+#loginForm input {
+  width: 100%;
+  padding: 10px 14px;
+  margin: 10px 0;
+  border: 1px solid #ff7a00;
+  border-radius: 8px;
+  background: #2a2a2a;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.3s, box-shadow 0.3s;
+}
+
+#loginForm input:focus {
+  border-color: #ffa94d;
+  box-shadow: 0 0 8px rgba(255, 122, 0, 0.8);
+}
+
+/* Botón */
+#btnLogin {
+  width: 100%;
+  padding: 12px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, #ff7a00, #ff9e42);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#btnLogin:hover {
+  background: linear-gradient(90deg, #ff9e42, #ffb766);
+  transform: scale(1.05);
+}
+
+/* Estado login */
+#loginStatus {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+
+/* ❌ Botón cerrar */
+.cerrar {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 1.5rem;
+  color: #ff7a29;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.cerrar:hover {
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+/* Animación de aparición */
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+/* Estilo de las opciones del select */
+select option {
+  background: #1f1f1f;
+  color: #fff;
+  padding: 0.5rem;
+}
+
+select option:hover {
+  background: #ff7a29;
+  color: #111;
+}
+.status {
+  margin-top: 1rem;
+  font-style: italic;
+  font-weight: 600;
+  color: #ff7a29;
+  text-align: center;
+}
+/* Área Drag & Drop */
+.drop-area {
+  border: 2px dashed #ff751a;
+  border-radius: 12px;
+  padding: 30px;
+  background: rgba(255, 117, 26, 0.05);
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.drop-area:hover {
+  background: rgba(255, 117, 26, 0.15);
+  border-color: #ff4500;
+}
+
+.drop-area p {
+  color: #ddd;
+  font-size: 15px;
+}
+
+.drop-area .highlight {
+  color: #ff751a;
+  font-weight: bold;
+}
+
+/* Estado activo al arrastrar */
+.drop-area.active {
+  background: rgba(255, 117, 26, 0.25);
+  border-color: #ff751a;
+}
+.proyecto-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(255, 100, 0, 0.4);
+  transition: transform 0.2s;
+}
+
+.proyecto-card:hover {
+  transform: scale(1.02);
+}
+
+.preview-img {
+  max-width: 400px;
+  max-height: 250px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  object-fit: contain;
+  background: #111;
+}
+
+.proyecto-info {
+  text-align: center;
+}
+
+.nombre-archivo {
+  font-size: 1rem;
+  color: #ddd;
+  margin-bottom: 8px;
+}
+
+.acciones {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-ver,
+.btn-descargar {
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn-ver {
+  background: #ff6600;
+  color: white;
+}
+
+.btn-ver:hover {
+  background: #ff8533;
+}
+
+.btn-descargar {
+  background: #0099ff;
+  color: white;
+}
+
+.btn-descargar:hover {
+  background: #33adff;
+}

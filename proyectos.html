@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyectos | Jhon Enciso</title>
+  <link rel="stylesheet" href="proyectos.css">
+  <script src="https://unpkg.com/@supabase/supabase-js"></script>
+</head>
+
+<body>
+<!-- 🔐 Header -->
+<header class="header">
+  <div class="logo">Jhon Enciso</div>
+  <div>
+    <button id="loginBtn" class="btn btn-primary">Iniciar Sesión</button>
+    <button id="logoutBtn" class="btn btn-secondary" style="display:none;">Cerrar Sesión</button>
+    <!-- ✅ Botón para abrir modal de subida -->
+    <button id="openUploadBtn" class="btn btn-accent" style="display:none;">📤 Subir Proyecto</button>
+  </div>
+</header>
+
+<!-- Modal Login -->
+<div id="loginModal" class="modal oculto">
+  <div class="modal-content login-box">
+    <span id="cerrarLoginModal" class="cerrar">✖</span>
+    <h2>Iniciar sesión</h2>
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Correo electrónico" required />
+      <input type="password" id="loginPassword" placeholder="Contraseña" required />
+      <button type="submit" id="btnLogin" class="btn btn-accent">Ingresar</button>
+      <p id="loginStatus" class="status"></p>
+    </form>
+  </div>
+</div>
+
+<!-- 🎯 Hero -->
+<section class="hero">
+  <h1>Proyectos</h1>
+  <p>Explora, comparte y gestiona tus proyectos por semanas</p>
+</section>
+
+<!-- 📌 Sección de semanas -->
+<div class="grid-semanas">
+  <div class="card-semana semana" data-semana="1">Semana 1</div>
+  <div class="card-semana semana" data-semana="2">Semana 2</div>
+  <div class="card-semana semana" data-semana="3">Semana 3</div>
+  <div class="card-semana semana" data-semana="4">Semana 4</div>
+  <div class="card-semana semana" data-semana="5">Semana 5</div>
+  <div class="card-semana semana" data-semana="6">Semana 6</div>
+  <div class="card-semana semana" data-semana="7">Semana 7</div>
+  <div class="card-semana semana" data-semana="8">Semana 8</div>
+  <div class="card-semana semana" data-semana="9">Semana 9</div>
+  <div class="card-semana semana" data-semana="10">Semana 10</div>
+  <div class="card-semana semana" data-semana="11">Semana 11</div>
+  <div class="card-semana semana" data-semana="12">Semana 12</div>
+  <div class="card-semana semana" data-semana="13">Semana 13</div>
+  <div class="card-semana semana" data-semana="14">Semana 14</div>
+  <div class="card-semana semana" data-semana="15">Semana 15</div>
+  <div class="card-semana semana" data-semana="16">Semana 16</div>
+</div>
+
+<!-- 📤 Modal Subir Archivos -->
+<div id="uploadModal" class="modal oculto">
+  <div class="modal-content upload-box">
+    <span id="cerrarUploadModal" class="cerrar">✖</span>
+    <h2>📤 Subir archivo</h2>
+    
+    <form id="uploadForm">
+      <label for="weekSelect">Selecciona semana:</label>
+      <select id="weekSelect" required>
+        <option value="1">Semana 1</option>
+        <option value="2">Semana 2</option>
+        <option value="3">Semana 3</option>
+        <option value="4">Semana 4</option>
+        <option value="5">Semana 5</option>
+        <option value="6">Semana 6</option>
+        <option value="7">Semana 7</option>
+        <option value="8">Semana 8</option>
+        <option value="9">Semana 9</option>
+        <option value="10">Semana 10</option>
+        <option value="11">Semana 11</option>
+        <option value="12">Semana 12</option>
+        <option value="13">Semana 13</option>
+        <option value="14">Semana 14</option>
+        <option value="15">Semana 15</option>
+        <option value="16">Semana 16</option>
+      </select>
+
+      <input type="file" id="fileInput" required />
+      <button type="submit" class="btn btn-accent">Subir</button>
+      <p id="uploadStatus" class="status"></p>
+    </form>
+  </div>
+</div>
+
+<!-- 🖼️ Modal carrusel (donde se mostrarán los proyectos) -->
+<div id="modalCarrusel" class="modal oculto">
+  <div class="modal-content proyectos-box">
+    <span id="cerrarModal" class="cerrar">✖</span>
+    <h3 id="titulo-proyecto"></h3>
+
+    <!-- Aquí se cargan los proyectos dinámicamente -->
+    <div id="carruselProyectos" class="grid-proyectos"></div>
+
+    <!-- Controles -->
+    <div class="controles-carrusel">
+      <button id="prevProyecto" class="flecha izquierda">⬅</button>
+      <button id="nextProyecto" class="flecha derecha">➡</button>
+    </div>
+  </div>
+</div>
+
+<script src="proyectos.js"></script>
+</body>
+</html>
