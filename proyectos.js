@@ -50,23 +50,33 @@ cerrarLoginModal.addEventListener("click", () => {
   loginModal.style.display = "none";
 });
 
-loginForm.addEventListener("submit", (e) => {
+loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
-  if (email && password) {
-    loggedIn = true;
-    loginModal.style.display = "none";
-    loginBtn.style.display = "none";
-    logoutBtn.style.display = "inline-block";
-    openUploadBtn.style.display = "inline-block";
-    loginStatus.textContent = "";
-    alert("✅ Has iniciado sesión.");
-  } else {
-    loginStatus.textContent = "Credenciales inválidas.";
+  // 🔑 Validar con Supabase Auth
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error || !data.user) {
+    loginStatus.textContent = "❌ Credenciales inválidas.";
+    console.error("Error login:", error);
+    return;
   }
+
+  // ✅ Si pasó
+  loggedIn = true;
+  loginModal.style.display = "none";
+  loginBtn.style.display = "none";
+  logoutBtn.style.display = "inline-block";
+  openUploadBtn.style.display = "inline-block";
+  loginStatus.textContent = "";
+  alert("✅ Bienvenido " + data.user.email);
 });
+
 
 logoutBtn.addEventListener("click", () => {
   loggedIn = false;
