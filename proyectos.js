@@ -108,12 +108,16 @@ uploadForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Carpeta normalizada: semana_#
-  const carpeta = `semana_${semana}`;
-const filePath = `semana_${semana}/${Date.now()}_${archivo.name}`;
+  // ✅ Nombre limpio
+  const safeName = archivo.name
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, "_")
+    .replace(/[^a-zA-Z0-9._-]/g, "");
 
+  const filePath = `semana_${semana}/${Date.now()}_${safeName}`;
 
-  // 1. Subir al bucket "proyectos"
+  // 1. Subir al bucket
   let { error: uploadError } = await supabaseClient
     .storage
     .from("proyectos")
@@ -132,13 +136,10 @@ const filePath = `semana_${semana}/${Date.now()}_${archivo.name}`;
 
   const publicUrl = data.publicUrl;
 
-  // 3. Guardar metadata en la tabla "proyectos"
+  // 3. Guardar metadata
   let { error: insertError } = await supabaseClient
     .from("proyectos")
-    .insert([
-      { nombre: archivo.name, semana: `semana_${semana}`, url: publicUrl }
-
-    ]);
+    .insert([{ nombre: safeName, semana: `semana_${semana}`, url: publicUrl }]);
 
   if (insertError) {
     uploadStatus.textContent = "❌ Error al guardar en BD: " + insertError.message;
@@ -150,9 +151,10 @@ const filePath = `semana_${semana}/${Date.now()}_${archivo.name}`;
   setTimeout(() => {
     uploadModal.style.display = "none";
     uploadStatus.textContent = "";
-    cargarProyectos(semana); // refrescar la vista
+    cargarProyectos(semana);
   }, 1200);
 });
+
 
 // ==================
 // Cargar proyectos desde Supabase
