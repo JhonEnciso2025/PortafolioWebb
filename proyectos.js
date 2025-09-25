@@ -77,7 +77,6 @@ loginForm.addEventListener("submit", async (e) => {
   alert("✅ Bienvenido " + data.user.email);
 });
 
-
 logoutBtn.addEventListener("click", () => {
   loggedIn = false;
   loginBtn.style.display = "inline-block";
@@ -155,7 +154,6 @@ uploadForm.addEventListener("submit", async (e) => {
   }, 1200);
 });
 
-
 // ==================
 // Cargar proyectos desde Supabase
 // ==================
@@ -163,11 +161,10 @@ async function cargarProyectos(semana) {
   tituloProyecto.textContent = "Semana " + semana;
   carruselProyectos.innerHTML = "<p>Cargando...</p>";
 
-let { data, error } = await supabaseClient
-  .from("proyectos")
-  .select("*")
-  .eq("semana", `semana_${semana}`);
-
+  let { data, error } = await supabaseClient
+    .from("proyectos")
+    .select("*")
+    .eq("semana", `semana_${semana}`);
 
   if (error) {
     carruselProyectos.innerHTML = "<p>❌ Error al cargar proyectos</p>";
@@ -192,11 +189,48 @@ function mostrarProyecto(lista, semana) {
   div.innerHTML = `
     <h4>${proyecto.nombre}</h4>
     <div class="acciones">
-      <a href="${proyecto.url}" target="_blank" class="btn-ver">👁 Ver</a>
+      <button class="btn-ver">👁 Ver</button>
       <a href="${proyecto.url}" download class="btn-descargar">⬇ Descargar</a>
+      ${loggedIn ? `<button class="btn-borrar">🗑 Borrar</button>` : ""}
     </div>
   `;
   carruselProyectos.appendChild(div);
+
+  // ✅ Botón de previsualización
+  div.querySelector(".btn-ver").onclick = () => abrirPreview(proyecto);
+
+  // ✅ Botón de borrado (solo si está logueado)
+  if (loggedIn) {
+    div.querySelector(".btn-borrar").onclick = async () => {
+      if (!confirm("¿Seguro que deseas eliminar este archivo?")) return;
+
+      // 1. Borrar de storage
+      const filePath = proyecto.url.split("/").slice(-2).join("/"); 
+      let { error: delError } = await supabaseClient
+        .storage
+        .from("proyectos")
+        .remove([filePath]);
+
+      if (delError) {
+        alert("❌ Error al borrar del storage: " + delError.message);
+        return;
+      }
+
+      // 2. Borrar de la BD
+      let { error: dbError } = await supabaseClient
+        .from("proyectos")
+        .delete()
+        .eq("id", proyecto.id);
+
+      if (dbError) {
+        alert("❌ Error al borrar de BD: " + dbError.message);
+        return;
+      }
+
+      alert("✅ Archivo eliminado correctamente.");
+      cargarProyectos(semana);
+    };
+  }
 
   // Navegación carrusel
   prevProyecto.onclick = () => {
@@ -223,4 +257,47 @@ document.querySelectorAll(".card-semana").forEach((card) => {
 
 cerrarModal.addEventListener("click", () => {
   modalCarrusel.style.display = "none";
+});
+
+// ==================
+// Modal de Previsualización
+// ==================
+const modalPreview = document.getElementById("modal-preview");
+const cerrarPreview = document.getElementById("cerrarPreview");
+const previewContainer2 = document.getElementById("preview-container");
+
+function abrirPreview(proyecto) {
+  previewContainer2.innerHTML = "";
+
+  const extension = proyecto.nombre.split(".").pop().toLowerCase();
+
+  if (["jpg", "jpeg", "png", "gif", "webp"].includes(extension)) {
+    const img = new Image();
+    img.src = proyecto.url;
+    img.className = "w-full h-full object-contain";
+    previewContainer2.appendChild(img);
+  } 
+  else if (extension === "pdf") {
+    const iframe = document.createElement("iframe");
+    iframe.src = proyecto.url;
+    iframe.className = "w-full h-full";
+    previewContainer2.appendChild(iframe);
+  } 
+  else if (["doc", "docx", "ppt", "pptx", "xls", "xlsx"].includes(extension)) {
+    const iframe = document.createElement("iframe");
+    iframe.src = `https://view.officeapps.live.com/op/embed.aspx?src=${encodeURIComponent(proyecto.url)}`;
+    iframe.className = "w-full h-full";
+    previewContainer2.appendChild(iframe);
+  } 
+  else {
+    const p = document.createElement("p");
+    p.textContent = "📄 No se puede previsualizar este tipo de archivo. Descárgalo.";
+    previewContainer2.appendChild(p);
+  }
+
+  modalPreview.style.display = "flex";
+}
+
+cerrarPreview.addEventListener("click", () => {
+  modalPreview.style.display = "none";
 });
