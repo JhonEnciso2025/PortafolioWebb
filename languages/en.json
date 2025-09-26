@@ -9,18 +9,17 @@
 
     "home": {
         "home_text-1": "Hi! I'm",
-        "home_text-3": "Student of Systems and Computer Engineering
-",
-        "parrafo-info": "👨‍🎓 I am a Systems Engineering student, a career I am deeply passionate about because it allows me to develop technological solutions that transform ideas into reality. I am motivated to learn more about programming, databases, and software development every day, with the goal of becoming a professional capable of bringing innovation and contributing to technological advancement in my field.
-",
+        "home_text-3": "Student of Systems and Computer Engineering",
+        "parrafo-info": "👨‍🎓 I am a Systems Engineering student, a career I am deeply passionate about because it allows me to develop technological solutions that transform ideas into reality. I am motivated to learn more about programming, databases, 
+        and software development every day, with the goal of becoming a professional capable of bringing innovation and contributing to technological advancement in my field.",
         "cv_button": "Download CV",
         "contact_button": "Contact"
     },
 
     "sobre-mi": {
         "title": "About me",
-        "texto_sobreMi": "I am a Systems Engineering student at the Universidad Peruana Los Andes, focused on the analysis, design, and development of technological solutions that respond to current needs. Throughout my studies, I have acquired knowledge in programming, databases, networks, and software project management, which allows me to have a comprehensive view of the engineering field and its impact on different sectors.
-"
+        "texto_sobreMi": "I am a Systems Engineering student at the Universidad Peruana Los Andes, focused on the analysis, design, and development of technological solutions that respond to current needs. 
+        Throughout my studies, I have acquired knowledge in programming, databases, networks, and software project management, which allows me to have a comprehensive view of the engineering field and its impact on different sectors."
     },
 
     "habilidades": {
